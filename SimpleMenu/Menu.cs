@@ -22,7 +22,7 @@ using System.Text;
 
 namespace SimpleMenu
 {
-    public class Menu(string title = "No Title")
+    public class Menu(string title = "Application Title")
     {
         public struct Option(string description, string selector)
         {
