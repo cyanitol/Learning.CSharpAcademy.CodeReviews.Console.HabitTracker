@@ -18,76 +18,62 @@
 // Contact information:
 // Email: license@jmweeks.com
 
+using SimpleMenu;
+
 namespace Console.HabitTracker
 {
-    using SimpleMenu;
-
     internal class Program
     {
+        internal static readonly string AppName = "Habit Tracker (Console)";
+        internal static MenuMain MainMenu = new MenuMain();
+
         private static void Main(string[] args)
         {
-            var AppName = "Habit Tracker (Console)";
-            Menu MenuMain = new($"{AppName}");
-            Menu MenuLogHabit = new($"{AppName} :: Log Habit");
-            Menu MenuViewLog = new($"{AppName} :: View Log");
-            Menu MenuReports = new($"{AppName} :: Reports");
-            Menu MenuNewHabit = new($"{AppName} :: New Habit");
-            Menu MenuSettings = new($"{AppName} :: Settings");
-
-            MenuMain.AddMenuOption(new Menu.Option("Log Habit", "1"));
-            MenuMain.AddMenuOption(new Menu.Option("View Log", "2"));
-            MenuMain.AddMenuOption(new Menu.Option("Reports", "3"));
-            MenuMain.AddMenuOption(new Menu.Option("New Habit", "4"));
-            MenuMain.AddMenuOption(new Menu.Option("Settings", "9"));
-            MenuMain.AddMenuOption(new Menu.Option("Exit", "0"));
-            
-            MenuLogHabit.AddMenuOption(new Menu.Option("Lorem Ipsum Dolor Sit Amet", "1"));
-            MenuLogHabit.AddMenuOption(new Menu.Option("Exit to Main Menu", "0"));
-            
-            MenuViewLog.AddMenuOption(new Menu.Option("Lorem Ipsum Dolor Sit Amet", "1"));
-            MenuViewLog.AddMenuOption(new Menu.Option("Exit to Main Menu", "0"));
-            
-            MenuReports.AddMenuOption(new Menu.Option("Lorem Ipsum Dolor Sit Amet", "1"));
-            MenuReports.AddMenuOption(new Menu.Option("Exit to Main Menu", "0"));
-            
-            MenuNewHabit.AddMenuOption(new Menu.Option("Lorem Ipsum Dolor Sit Amet", "1"));
-            MenuNewHabit.AddMenuOption(new Menu.Option("Exit to Main Menu", "0"));
-            
-            MenuSettings.AddMenuOption(new Menu.Option("Lorem Ipsum Dolor Sit Amet", "1"));
-            MenuSettings.AddMenuOption(new Menu.Option("Exit to Main Menu", "0"));
-
             while (true)
             {
-                MenuMain.ShowMenu();
-                var s = MenuMain.Prompt(checkEnabled: true);
+                MainMenu.ShowMenu();
+                var s = MainMenu.Prompt(checkEnabled: true);
 
                 switch (s)
                 {
                     case "1":
-                        MenuLogHabit.ShowMenu();
-                        MenuLogHabit.Prompt(checkEnabled: true);
+                        var logHabitMenu = new MenuLogHabit();
+                        logHabitMenu.ShowMenu();
+                        DoOperation(logHabitMenu.Prompt(checkEnabled:true));
                         break;
                     case "2":
-                        MenuViewLog.ShowMenu();
-                        MenuViewLog.Prompt(checkEnabled: true);
+                        var viewLogMenu = new MenuViewLog();
+                        viewLogMenu.ShowMenu();
+                        DoOperation(viewLogMenu.Prompt(checkEnabled:true));
                         break;
                     case "3":
-                        MenuReports.ShowMenu();
-                        MenuReports.Prompt(checkEnabled: true);
+                        var reportMenu = new MenuReport();
+                        reportMenu.ShowMenu();
+                        DoOperation(reportMenu.Prompt(checkEnabled:true));
                         break;
                     case "4":
-                        MenuNewHabit.ShowMenu();
-                        MenuNewHabit.Prompt(checkEnabled: true);
+                        var habitMenu = new MenuNewHabit();
+                        habitMenu.ShowMenu();
+                        DoOperation(habitMenu.Prompt(checkEnabled:true));
                         break;
                     case "9":
-                        MenuSettings.ShowMenu();
-                        MenuSettings.Prompt(checkEnabled: true);
+                        var settingsMenu = new MenuSettings();
+                        settingsMenu.ShowMenu();
+                        DoOperation(settingsMenu.Prompt(checkEnabled:true));
                         break;
                     case "0":
                         Environment.Exit(0);
                         break;
                 }
+
+                void DoOperation(string x)
+                {
+                    System.Console.Clear();
+                    System.Console.WriteLine($"Operation {x} Performed");
+                    System.Console.ReadLine();
+                }
             }
         }
+
     }
 }
