@@ -3,7 +3,7 @@ using Microsoft.Data.Sqlite;
 
 public class Database(string connString = @"Data Source=HabitTracker.db")
 {
-    public void AddHabit(string habitName)
+    public void CreateLogCategory(string habitName)
     {
         if (habitName == null) throw new ArgumentNullException(nameof(habitName));
         var cmd  = $"""
@@ -14,7 +14,7 @@ public class Database(string connString = @"Data Source=HabitTracker.db")
         SendCmd(cmd);
         }
     
-    public void LogHabit(string habitName, DateOnly logDate, int qty)
+    public void AddLogItem(string habitName, DateOnly logDate, int qty)
     {
         if (habitName == null) throw new ArgumentNullException(nameof(habitName));
         var cmd  = $"""
@@ -23,15 +23,22 @@ public class Database(string connString = @"Data Source=HabitTracker.db")
         SendCmd(cmd);
     }
     
+    public void DeleteLogItem(string habitName, int logId)
+    {
+        if (habitName == null) throw new ArgumentNullException(nameof(habitName));
+        var cmd  = $"""
+                    DELETE FROM {habitName} WHERE id = '{logId}'
+                    """;
+        SendCmd(cmd);
+    }
+    
     private void SendCmd(string command)
     {
-        if (command == null) throw new ArgumentNullException(nameof(command));
-        using (var conn = new SqliteConnection(connString)) {
-            conn.Open();
-            var cmd = conn.CreateCommand();
-            cmd.CommandText = $"{command}";
-            cmd.ExecuteNonQuery();
-            conn.Close();
-        }
+        using var conn = new SqliteConnection(connString);
+        conn.Open();
+        var cmd = conn.CreateCommand();
+        cmd.CommandText = $"{command}";
+        cmd.ExecuteNonQuery();
+        conn.Close();
     }
 }

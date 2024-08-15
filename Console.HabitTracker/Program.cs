@@ -18,8 +18,6 @@
 // Contact information:
 // Email: license@jmweeks.com
 
-using SimpleMenu;
-
 namespace Console.HabitTracker
 {
     internal class Program
@@ -52,9 +50,10 @@ namespace Console.HabitTracker
                         DoOperation(reportMenu.Prompt(checkEnabled:true));
                         break;
                     case "4":
-                        var habitMenu = new MenuNewHabit();
-                        habitMenu.ShowMenu();
-                        DoOperation(habitMenu.Prompt(checkEnabled:true));
+                        var habit = MainMenu.Prompt("Enter New Habit Name:");
+                        var db = new Database();
+                        if (habit != null) db.CreateLogCategory(habit);
+                        if (habit == null) continue;
                         break;
                     case "9":
                         var settingsMenu = new MenuSettings();
