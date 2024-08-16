@@ -30,7 +30,7 @@ namespace Console.HabitTracker
 
         private static void Main(string[] args)
         {
-            var initialMenu = new MenuSelectHabit($"{Program.AppName} :: Select Habit",firstRun: true);
+            var SelectHabitMenu = new MenuSelectHabit($"{Program.AppName} :: Select Habit",firstRun: true);
             while (true)
             {
                 var MainMenu = new MenuMain($"{AppName}");
@@ -53,6 +53,9 @@ namespace Console.HabitTracker
                         var db = new Database();
                         if (habit != null) db.CreateLogCategory(habit);
                         if (habit == null) continue;
+                        break;
+                    case "5":
+                        MenuSelectHabit.GetHabit();
                         break;
                     case "8":
                         var _ = new MenuSelectHabit($"{Program.AppName} :: Select Habit");
