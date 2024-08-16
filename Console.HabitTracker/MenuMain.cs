@@ -3,7 +3,8 @@ using SimpleMenu;
 namespace Console.HabitTracker{
     internal class MenuMain : Menu {
 
-        public MenuMain(){
+        public MenuMain(string title = "Application Title") : base(title)
+        {
             AddMenuOption(new Option("Log Habit", "1"));
             AddMenuOption(new Option("View Log", "2"));
             AddMenuOption(new Option("Report Menu", "3"));
@@ -12,5 +13,5 @@ namespace Console.HabitTracker{
             AddMenuOption(new Option("Exit", "0"));
             ShowMenu();
         }
-}
+    }
 }
