@@ -13,6 +13,14 @@ public class Database(string connString = @"Data Source=HabitTracker.db")
                     """;
         SendCmd(cmd);
         }
+
+    public void ShowLogCategories(){
+        var cmd  = $"""
+                    SELECT name FROM sqlite_master
+                    WHERE type='table';
+                    """;
+        SendCmd(cmd);
+    }
     
     public void AddLogItem(string habitName, DateOnly logDate, int qty)
     {
