@@ -9,6 +9,8 @@ namespace Console.HabitTracker{
             AddMenuOption(new Menu.Option("Search Log", "2"));
             AddMenuOption(new Menu.Option("Export Log", "3"));
             AddMenuOption(new Menu.Option("Exit to Main Menu", "0"));
+            ShowMenu();
+            Prompt(checkEnabled: true);
         }
     }
 }

@@ -12,6 +12,8 @@ namespace Console.HabitTracker
             AddMenuOption(new MenuReport.Option(description: "Longest/Shortest Streak", selector: "3"));
             AddMenuOption(new MenuReport.Option(description: "Totals", selector: "4"));
             AddMenuOption(new MenuReport.Option("Exit to Main Menu", "0"));
+            ShowMenu();
+            Program.menuSelection = Prompt(checkEnabled: true);
         }
     }
 }

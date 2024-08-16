@@ -9,6 +9,8 @@ namespace Console.HabitTracker
         {
             AddMenuOption(new MenuLogHabit.Option("Lorem Ipsum Dolor Sit Amet", "1"));
             AddMenuOption(new MenuLogHabit.Option("Exit to Main Menu", "0"));
+            ShowMenu();
+            Program.menuSelection = Prompt(checkEnabled: true);
         }
     }
 }
