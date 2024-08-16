@@ -18,36 +18,35 @@
 // Contact information:
 // Email: license@jmweeks.com
 
+using SimpleMenu;
+
 namespace Console.HabitTracker
 {
     internal class Program
     {
-        internal static readonly string AppName = "Habit Tracker (Console)";
-        internal static MenuMain MainMenu = new MenuMain();
+        internal static readonly string AppName = "Habit Tracker";
+        internal static string? selectedHabit;
+        internal static string? menuSelection;
 
         private static void Main(string[] args)
         {
+            var initialMenu = new MenuSelectHabit($"{Program.AppName} :: Select Habit",firstRun: true);
             while (true)
             {
-                MainMenu.ShowMenu();
-                var s = MainMenu.Prompt(checkEnabled: true);
+                var MainMenu = new MenuMain($"{AppName}");
+                MainMenu.ShowMenu(footerContent: [$"Selected Habit: {Program.selectedHabit}"]);
+                menuSelection = MainMenu.Prompt(checkEnabled: true);
 
-                switch (s)
+                switch (menuSelection)
                 {
                     case "1":
-                        var logHabitMenu = new MenuLogHabit();
-                        logHabitMenu.ShowMenu();
-                        DoOperation(logHabitMenu.Prompt(checkEnabled:true));
+                        var logHabitMenu = new MenuLogHabit($"{Program.AppName} :: Log Habit");
                         break;
                     case "2":
-                        var viewLogMenu = new MenuViewLog();
-                        viewLogMenu.ShowMenu();
-                        DoOperation(viewLogMenu.Prompt(checkEnabled:true));
+                        var viewLogMenu = new MenuViewLog($"{Program.AppName} :: View Log");
                         break;
                     case "3":
-                        var reportMenu = new MenuReport();
-                        reportMenu.ShowMenu();
-                        DoOperation(reportMenu.Prompt(checkEnabled:true));
+                        var reportMenu = new MenuReport($"{Program.AppName} :: Reports");
                         break;
                     case "4":
                         var habit = MainMenu.Prompt("Enter New Habit Name:");
@@ -55,21 +54,17 @@ namespace Console.HabitTracker
                         if (habit != null) db.CreateLogCategory(habit);
                         if (habit == null) continue;
                         break;
+                    case "8":
+                        var _ = new MenuSelectHabit($"{Program.AppName} :: Select Habit");
+                        break;
                     case "9":
-                        var settingsMenu = new MenuSettings();
-                        settingsMenu.ShowMenu();
-                        DoOperation(settingsMenu.Prompt(checkEnabled:true));
+                        var settingsMenu = new MenuSettings($"{Program.AppName} :: Settings");
                         break;
                     case "0":
                         Environment.Exit(0);
                         break;
-                }
-
-                void DoOperation(string x)
-                {
-                    System.Console.Clear();
-                    System.Console.WriteLine($"Operation {x} Performed");
-                    System.Console.ReadLine();
+                    default:
+                        break;
                 }
             }
         }
