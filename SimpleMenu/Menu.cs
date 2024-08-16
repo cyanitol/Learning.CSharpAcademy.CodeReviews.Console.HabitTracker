@@ -30,7 +30,7 @@ namespace SimpleMenu
             public readonly string Selector = selector;
         }
 
-        private readonly List<Option> _options = [];
+        private List<Option> _options = [];
 
         private static readonly int ConsoleWidth = Console.WindowWidth;
         private readonly int _totalPaddingLength = (ConsoleWidth / 2) + (title.Length / 2);
@@ -44,6 +44,13 @@ namespace SimpleMenu
         public void AddMenuOption(Option menuOption)
         {
             _options.Add(menuOption);
+        }
+
+        public void ClearMenuOptions()
+        {
+            foreach (Option option in _options){
+                _options.Remove(option);
+            }
         }
 
         public void ShowMenu(bool clear = true, string optionDelimiter = "",
