@@ -23,13 +23,21 @@ public class Database(string connString = @"Data Source=HabitTracker.db")
         return SendCmdRead(cmd);
     }
 
-    public void AddLogItem(string habitName, DateOnly logDate, int qty)
+    public void AddLogItem(string category, DateOnly logDate, int qty)
     {
-        if (habitName == null) throw new ArgumentNullException(nameof(habitName));
+        if (category == null) throw new ArgumentNullException(nameof(category));
         var cmd = $"""
-                    INSERT INTO {habitName}(date, quantity) VALUES('{logDate}',{qty})
+                    INSERT INTO {category}(date, quantity) VALUES('{logDate}',{qty})
                     """;
         SendCmd(cmd);
+    }
+
+    public List<object> GetLogItems(string category){
+        if (category == null) throw new ArgumentNullException(nameof(category));
+        var cmd = $"""
+                    SELECT * FROM {category};
+                    """;
+        return SendCmdRead(cmd);
     }
 
     public void DeleteLogItem(string habitName, int logId)
@@ -51,7 +59,7 @@ public class Database(string connString = @"Data Source=HabitTracker.db")
         conn.Close();
     }
 
-    private List<object> SendCmdRead(string command)
+    internal List<object> SendCmdRead(string command)
     {
         using var conn = new SqliteConnection(connString);
         var cmd = conn.CreateCommand();
@@ -63,7 +71,17 @@ public class Database(string connString = @"Data Source=HabitTracker.db")
         {
             while (reader.Read())
             {
+                if (reader.FieldCount == 1){
                 results.Add(reader.GetString(0));
+                }
+                if (reader.FieldCount == 3){
+                HabitLogLine habit = new();
+                habit.id = reader.GetString(0);
+                habit.date = reader.GetString(1);
+                habit.quantity = reader.GetString(2);
+                results.Add(habit);
+                }
+
             }
 
         }

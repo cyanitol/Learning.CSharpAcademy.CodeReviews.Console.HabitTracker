@@ -1,4 +1,5 @@
 using SimpleMenu;
+using Microsoft.Data.Sqlite;
 
 namespace Console.HabitTracker
 {

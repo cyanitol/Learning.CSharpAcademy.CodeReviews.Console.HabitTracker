@@ -9,7 +9,27 @@ namespace Console.HabitTracker{
             AddMenuOption(new Menu.Option("Export Log", "3"));
             AddMenuOption(new Menu.Option("Exit to Main Menu", "0"));
             ShowMenu();
-            Prompt(checkEnabled: true);
+            var r = Prompt(checkEnabled: true);
+            switch (r)
+            {
+                case "1":
+                    MenuViewLog.ViewLog(Program.selectedHabit);
+                    break;
+                case "2":
+                    break;
+                case "3":
+                    break;
+                case "0":
+                    break;
+            }
+        }
+        public static void ViewLog(string habit){
+            Database db = new();
+            var r = db.GetLogItems(habit);
+            foreach(var i in r){
+            System.Console.WriteLine(i);
+            }
+            System.Console.ReadLine();
         }
     }
 }

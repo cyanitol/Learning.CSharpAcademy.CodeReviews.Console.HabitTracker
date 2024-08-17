@@ -22,7 +22,14 @@ using SimpleMenu;
 
 namespace Console.HabitTracker
 {
-    internal class Program
+    public struct HabitLogLine
+    {
+        public string id { get; set; }
+        public string date { get; set; }
+        public string quantity { get; set; }
+    }
+
+    public class Program
     {
         internal static readonly string AppName = "Habit Tracker";
         internal static string? selectedHabit;
@@ -30,7 +37,7 @@ namespace Console.HabitTracker
 
         private static void Main(string[] args)
         {
-            var SelectHabitMenu = new MenuSelectHabit($"{Program.AppName} :: Select Habit",firstRun: true);
+            var SelectHabitMenu = new MenuSelectHabit($"{Program.AppName} :: Select Habit", firstRun: true);
             while (true)
             {
                 var MainMenu = new MenuMain($"{AppName}");
@@ -66,9 +73,9 @@ namespace Console.HabitTracker
             }
         }
 
-        private static void switchHabit(){
+        private static void switchHabit()
+        {
             var SelectHabitMenu = new MenuSelectHabit($"{Program.AppName} :: Select Habit");
         }
-
     }
 }
