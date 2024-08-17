@@ -49,16 +49,10 @@ namespace Console.HabitTracker
                         var reportMenu = new MenuReport($"{Program.AppName} :: Reports");
                         break;
                     case "4":
-                        var habit = MainMenu.Prompt("Enter New Habit Name:");
-                        var db = new Database();
-                        if (habit != null) db.CreateLogCategory(habit);
-                        if (habit == null) continue;
+                        var AddHabitMenu = new MenuAddHabit($"{Program.AppName} :: Add Habit");
                         break;
                     case "5":
-                        MenuSelectHabit.GetHabit();
-                        break;
-                    case "8":
-                        var _ = new MenuSelectHabit($"{Program.AppName} :: Select Habit");
+                        switchHabit();
                         break;
                     case "9":
                         var settingsMenu = new MenuSettings($"{Program.AppName} :: Settings");
@@ -70,6 +64,10 @@ namespace Console.HabitTracker
                         break;
                 }
             }
+        }
+
+        private static void switchHabit(){
+            var SelectHabitMenu = new MenuSelectHabit($"{Program.AppName} :: Select Habit");
         }
 
     }
