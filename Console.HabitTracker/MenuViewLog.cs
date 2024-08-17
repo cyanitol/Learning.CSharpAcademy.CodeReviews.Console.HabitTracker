@@ -2,7 +2,6 @@ using SimpleMenu;
 
 namespace Console.HabitTracker{
     internal class MenuViewLog : Menu {
-
         public MenuViewLog(string title = "Application Title") : base(title)
         {
             AddMenuOption(new Menu.Option("View Log", "1"));
