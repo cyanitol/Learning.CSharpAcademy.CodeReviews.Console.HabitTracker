@@ -37,6 +37,8 @@ namespace Console.HabitTracker
 
         private static void Main(string[] args)
         {
+            System.Console.SetWindowSize(100,400);
+
             var SelectHabitMenu = new MenuSelectHabit($"{Program.AppName} :: Select Habit", firstRun: true);
             while (true)
             {

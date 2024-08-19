@@ -1,5 +1,4 @@
 using SimpleMenu;
-using Microsoft.Data.Sqlite;
 
 namespace Console.HabitTracker
 {
@@ -11,38 +10,36 @@ namespace Console.HabitTracker
         }
         private void Init(bool firstRun=false){
             Database db = new();
-            int menuOptionCounter = 1;
+            var menuOptionCounter = 1;
             foreach (object result in db.GetLogCategories())
             {
                 var item = Convert.ToString(result);
-                if (item != "sqlite_sequence"){
+                if (item == "sqlite_sequence") continue;
                 AddMenuOption(new Option(item.ToUpper(), menuOptionCounter.ToString()));
                 menuOptionCounter++;
-                }
             }
             if (!firstRun)
-                AddMenuOption(new MenuSettings.Option("Exit to Main Menu", "0"));
+                AddMenuOption(new Option("Exit to Main Menu", "0"));
             ShowMenu();
             var r = Convert.ToInt32(Prompt(checkEnabled:true));
-            var _options = GetMenuOptions();
-            Program.selectedHabit = _options[r-1].Description;
+            var options = GetMenuOptions();
+            Program.selectedHabit = options[r-1].Description;
         }
         public static void GetHabit(){
             Menu tempMenu = new();
             Database db = new();
-            int menuOptionCounter = 1;
+            var menuOptionCounter = 1;
             foreach (object result in db.GetLogCategories())
             {
                 var item = Convert.ToString(result);
-                if (item != "sqlite_sequence"){
+                if (item == "sqlite_sequence") continue;
                 tempMenu.AddMenuOption(new Option(item.ToUpper(), menuOptionCounter.ToString()));
                 menuOptionCounter++;
-                }
             }
             tempMenu.ShowMenu();
             var r = Convert.ToInt32(tempMenu.Prompt(checkEnabled:true));
-            var _options = tempMenu.GetMenuOptions();
-            Program.selectedHabit = _options[r-1].Description;
+            var options = tempMenu.GetMenuOptions();
+            Program.selectedHabit = options[r-1].Description;
         }
     }
 }

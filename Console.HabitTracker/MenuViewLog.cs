@@ -1,7 +1,10 @@
+using System.Text;
 using SimpleMenu;
 
-namespace Console.HabitTracker{
-    internal class MenuViewLog : Menu {
+namespace Console.HabitTracker
+{
+    internal class MenuViewLog : Menu
+    {
         public MenuViewLog(string title = "Application Title") : base(title)
         {
             AddMenuOption(new Menu.Option("View Log", "1"));
@@ -23,13 +26,34 @@ namespace Console.HabitTracker{
                     break;
             }
         }
-        public static void ViewLog(string habit){
+        public static void ViewLog(string habit)
+        { 
             Database db = new();
             var r = db.GetLogItems(habit);
-            foreach(var i in r){
-            System.Console.WriteLine(i);
+            var footer = new List<string>();
+            StringBuilder footerLine = new();
+            footer.Add($"Log Line #\t\t Date\t\t Quantity\n");
+            foreach (HabitLogLine i in r)
+            {
+                footerLine.Clear();
+                footerLine.AppendFormat($"\t{i.id}\t\t{i.date}\t\t{i.quantity}");
+                footer.Add(footerLine.ToString());
             }
-            System.Console.ReadLine();
+
+            Menu tempMenu = new();
+            tempMenu.AddMenuOption(new Option("Delete log line","1"));
+            tempMenu.AddMenuOption(new Option("Return to Main Menu","0"));
+            tempMenu.ShowMenu(footerContent: footer);
+            
+            var response = tempMenu.Prompt();
+            switch (response)
+            {
+                case "1":
+                    tempMenu.Prompt("Enter Line # to Delete (0 to exit):");
+                    break;
+                case "0":
+                    break;
+            }
         }
     }
 }
