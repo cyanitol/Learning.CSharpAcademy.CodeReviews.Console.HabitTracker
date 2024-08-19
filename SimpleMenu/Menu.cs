@@ -20,137 +20,135 @@
 
 using System.Text;
 
-namespace SimpleMenu
+namespace SimpleMenu;
+
+public class Menu(string title = "Application Title")
 {
-    public class Menu(string title = "Application Title")
+    public struct Option(string description, string selector)
     {
-        public struct Option(string description, string selector)
-        {
-            public readonly string Description = description;
-            public readonly string Selector = selector;
+        public readonly string Description = description;
+        public readonly string Selector = selector;
+    }
+
+    private List<Option> _options = [];
+
+    private static readonly int ConsoleWidth = Console.WindowWidth;
+    private readonly int _totalPaddingLength = ConsoleWidth / 2 + title.Length / 2;
+    private const string MenuBorder = "|";
+    private const int InsideMarginWidth = 2;
+    private const int OutsideMarginWidth = 2;
+    private readonly string _outsideMargin = new(' ', OutsideMarginWidth);
+    private readonly string _insideMargin = new(' ', InsideMarginWidth);
+    private const int SelectorDescriptionMargin = 5;
+
+    public void AddMenuOption(Option menuOption)
+    {
+        _options.Add(menuOption);
+    }
+
+    public void ClearMenuOptions()
+    {
+        foreach (var option in _options.ToList()){
+            _options.Remove(option);
         }
-
-        private List<Option> _options = [];
-
-        private static readonly int ConsoleWidth = Console.WindowWidth;
-        private readonly int _totalPaddingLength = (ConsoleWidth / 2) + (title.Length / 2);
-        private const string MenuBorder = "|";
-        private const int InsideMarginWidth = 2;
-        private const int OutsideMarginWidth = 2;
-        private readonly string _outsideMargin = new string(' ', OutsideMarginWidth);
-        private readonly string _insideMargin = new string(' ', InsideMarginWidth);
-        private readonly int _selectorDescriptionMargin = 5;
-
-        public void AddMenuOption(Option menuOption)
-        {
-            _options.Add(menuOption);
-        }
-
-        public void ClearMenuOptions()
-        {
-            foreach (Option option in _options){
-                _options.Remove(option);
-            }
-        }
-
-        public void ShowMenu(bool clear = true, string optionDelimiter = "",
+    }
+    public void ShowMenu(bool clear = true, string optionDelimiter = "",
         List<string>? footerContent = null)
+    {
+        if (clear)
+            Console.Clear();
+
+        var menuTitle = new StringBuilder();
+        menuTitle.AppendFormat($"{_outsideMargin}");
+        menuTitle.AppendFormat("".PadLeft(_totalPaddingLength - OutsideMarginWidth, '='));
+        menuTitle.AppendFormat("\n");
+        menuTitle.AppendFormat($"{_outsideMargin}");
+        menuTitle.AppendFormat($"{title}".PadLeft(ConsoleWidth - menuTitle.Length).ToUpper());
+        menuTitle.AppendFormat("\n");
+        menuTitle.AppendFormat($"{_outsideMargin}");
+        menuTitle.AppendFormat("".PadLeft(_totalPaddingLength - OutsideMarginWidth, '='));
+        menuTitle.AppendFormat("\n");
+        Console.Write(menuTitle);
+
+        foreach (var option in _options)
         {
-            if (clear)
-                Console.Clear();
+            var menuLine = new StringBuilder();
+            menuLine.AppendFormat($"{_outsideMargin}");
+            menuLine.AppendFormat(MenuBorder);
+            menuLine.AppendFormat($"{_insideMargin}");
+            menuLine.AppendFormat($"{option.Selector}{optionDelimiter}");
+            menuLine.AppendFormat(new string(' ', SelectorDescriptionMargin -
+                                                  option.Selector.Length - optionDelimiter.Length));
+            menuLine.AppendFormat($"{option.Description}");
+            menuLine.AppendFormat("".PadLeft(_totalPaddingLength - menuLine.Length - 1));
+            menuLine.AppendFormat(MenuBorder);
+            menuLine.AppendFormat($"{_outsideMargin}");
+            menuLine.AppendFormat("\n");
+            Console.Write(menuLine);
 
-            var menuTitle = new StringBuilder();
-            menuTitle.AppendFormat($"{_outsideMargin}");
-            menuTitle.AppendFormat($"".PadLeft(_totalPaddingLength - OutsideMarginWidth, '='));
-            menuTitle.AppendFormat($"\n");
-            menuTitle.AppendFormat($"{_outsideMargin}");
-            menuTitle.AppendFormat($"{title}".PadLeft(ConsoleWidth - menuTitle.Length).ToUpper());
-            menuTitle.AppendFormat($"\n");
-            menuTitle.AppendFormat($"{_outsideMargin}");
-            menuTitle.AppendFormat($"".PadLeft(_totalPaddingLength - OutsideMarginWidth, '='));
-            menuTitle.AppendFormat($"\n");
-            Console.Write(menuTitle);
-
-            foreach (var option in _options)
-            {
-                var menuLine = new StringBuilder();
-                menuLine.AppendFormat($"{_outsideMargin}");
-                menuLine.AppendFormat(MenuBorder);
-                menuLine.AppendFormat($"{_insideMargin}");
-                menuLine.AppendFormat($"{option.Selector}{optionDelimiter}");
-                menuLine.AppendFormat(new string(' ', _selectorDescriptionMargin -
-                    option.Selector.Length - optionDelimiter.Length));
-                menuLine.AppendFormat($"{option.Description}");
-                menuLine.AppendFormat($"".PadLeft(_totalPaddingLength - menuLine.Length - 1));
-                menuLine.AppendFormat(MenuBorder);
-                menuLine.AppendFormat($"{_outsideMargin}");
-                menuLine.AppendFormat("\n");
-                Console.Write(menuLine);
-
-            }
-            ShowFooter(footerContent ?? []);
         }
+        ShowFooter(footerContent ?? []);
+    }
 
-        private void ShowFooter(string content = "")
+    private void ShowFooter(string content = "")
+    {
+        var footer = new StringBuilder();
+        footer.AppendFormat($"{_outsideMargin}");
+        footer.AppendFormat("".PadLeft(_totalPaddingLength - OutsideMarginWidth, '-'));
+        footer.AppendFormat($"{_outsideMargin}");
+        footer.AppendFormat("\n");
+        footer.AppendFormat($"{_outsideMargin}{_insideMargin}{content}{_outsideMargin}\n");
+        footer.AppendFormat($"{_outsideMargin}");
+        footer.AppendFormat("".PadRight(_totalPaddingLength - OutsideMarginWidth, '-'));
+        Console.WriteLine(footer.ToString());
+    }
+
+    private void ShowFooter(List<string> content)
+    {
+        var footer = new StringBuilder();
+        footer.AppendFormat($"{_outsideMargin}");
+        footer.AppendFormat("".PadLeft(_totalPaddingLength - OutsideMarginWidth, '-'));
+        footer.AppendFormat($"{_outsideMargin}");
+        footer.AppendFormat("\n");
+        foreach (var item in content)
         {
-            var footer = new StringBuilder();
-            footer.AppendFormat($"{_outsideMargin}");
-            footer.AppendFormat($"".PadLeft(_totalPaddingLength - OutsideMarginWidth, '-'));
-            footer.AppendFormat($"{_outsideMargin}");
-            footer.AppendFormat($"\n");
-            footer.AppendFormat($"{_outsideMargin}{_insideMargin}{content}{_outsideMargin}\n");
-            footer.AppendFormat($"{_outsideMargin}");
-            footer.AppendFormat("".PadRight(_totalPaddingLength - OutsideMarginWidth, '-'));
-            Console.WriteLine(footer.ToString());
+            footer.AppendFormat($"{_outsideMargin}{_insideMargin}{item}{_outsideMargin}\n");
         }
+        footer.AppendFormat($"{_outsideMargin}");
+        footer.AppendFormat("".PadRight(_totalPaddingLength - OutsideMarginWidth, '-'));
+        Console.WriteLine(footer.ToString());
+    }
 
-        private void ShowFooter(List<string> content)
+    public string? Prompt(string promptText = "Enter Selection:", bool checkEnabled = false)
+    {
+        string? input = null;
+        var prompt = new StringBuilder();
+        prompt.AppendFormat($"{_outsideMargin}{_insideMargin}");
+        prompt.AppendFormat(promptText);
+
+        if (checkEnabled)
         {
-            var footer = new StringBuilder();
-            footer.AppendFormat($"{_outsideMargin}");
-            footer.AppendFormat($"".PadLeft(_totalPaddingLength - OutsideMarginWidth, '-'));
-            footer.AppendFormat($"{_outsideMargin}");
-            footer.AppendFormat($"\n");
-            foreach (string item in content)
-            {
-                footer.AppendFormat($"{_outsideMargin}{_insideMargin}{item}{_outsideMargin}\n");
-            }
-            footer.AppendFormat($"{_outsideMargin}");
-            footer.AppendFormat("".PadRight(_totalPaddingLength - OutsideMarginWidth, '-'));
-            Console.WriteLine(footer.ToString());
-        }
-
-        public string? Prompt(string promptText = "Enter Selection:", bool checkEnabled = false)
-        {
-            string? input = null;
-            var prompt = new StringBuilder();
-            prompt.AppendFormat($"{_outsideMargin}{_insideMargin}");
-            prompt.AppendFormat(promptText);
-
-            if (checkEnabled)
-            {
-                while (!CheckInput(input ??= "no input"))
-                {
-                    Console.Write($"{prompt}".ToUpper());
-                    input = Console.ReadLine();
-                }
-            }
-            else
+            while (!CheckInput(input ??= "no input"))
             {
                 Console.Write($"{prompt}".ToUpper());
                 input = Console.ReadLine();
             }
-
-            return input?.ToLower();
         }
-
-        public List<Option> GetMenuOptions()
+        else
         {
-            return _options;
+            Console.Write($"{prompt}".ToUpper());
+            input = Console.ReadLine();
         }
-        private bool CheckInput(string? input)
-        {
-            return input != null && _options.Any(option => option.Selector == input);
-        }
+
+        return input?.ToLower();
+    }
+
+    public List<Option> GetMenuOptions()
+    {
+        return _options;
+    }
+    private bool CheckInput(string? input)
+    {
+        return input != null && _options.Any(option => option.Selector == input);
     }
 }

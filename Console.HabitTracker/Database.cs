@@ -5,21 +5,25 @@ public class Database(string connString = @"Data Source=HabitTracker.db")
 {
     public void CreateLogCategory(string habitName)
     {
-        if (habitName == null) throw new ArgumentNullException(nameof(habitName));
-        var cmd = $"""
-                    CREATE TABLE IF NOT EXISTS {habitName}
-                    (Id INTEGER PRIMARY KEY AUTOINCREMENT, Date TEXT,
-                    Quantity INTEGER)
-                    """;
-        SendCmd(cmd);
+        while (true)
+        {
+            if (habitName == null) continue;
+            var cmd = $"""
+                       CREATE TABLE IF NOT EXISTS {habitName}
+                       (Id INTEGER PRIMARY KEY AUTOINCREMENT, Date TEXT,
+                       Quantity INTEGER)
+                       """;
+            SendCmd(cmd);
+        }
+
     }
 
     public List<object> GetLogCategories()
     {
-        var cmd = $"""
-                    SELECT name FROM sqlite_master
-                    WHERE type='table';
-                    """;
+        const string cmd = """
+                           SELECT name FROM sqlite_master
+                           WHERE type='table';
+                           """;
         return SendCmdRead(cmd);
     }
 
@@ -59,7 +63,7 @@ public class Database(string connString = @"Data Source=HabitTracker.db")
         conn.Close();
     }
 
-    internal List<object> SendCmdRead(string command)
+    private List<object> SendCmdRead(string command)
     {
         using var conn = new SqliteConnection(connString);
         var cmd = conn.CreateCommand();
@@ -72,15 +76,17 @@ public class Database(string connString = @"Data Source=HabitTracker.db")
             while (reader.Read())
             {
                 if (reader.FieldCount == 1){
-                results.Add(reader.GetString(0));
+                    results.Add(reader.GetString(0));
                 }
-                if (reader.FieldCount == 3){
-                HabitLogLine habit = new();
-                habit.id = reader.GetString(0);
-                habit.date = reader.GetString(1);
-                habit.quantity = reader.GetString(2);
+
+                if (reader.FieldCount != 3) continue;
+                HabitLogLine habit = new()
+                {
+                    Id = reader.GetString(0),
+                    Date = reader.GetString(1),
+                    Quantity = reader.GetString(2)
+                };
                 results.Add(habit);
-                }
 
             }
 
