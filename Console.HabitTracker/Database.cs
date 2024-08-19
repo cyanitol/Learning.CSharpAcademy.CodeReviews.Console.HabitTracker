@@ -6,7 +6,7 @@ public class Database(string connString = @"Data Source=HabitTracker.db")
     public void CreateLogCategory(string habitName)
     {
             var cmd = $"""
-                       CREATE TABLE IF NOT EXISTS {habitName}
+                       CREATE TABLE IF NOT EXISTS '{habitName}'
                        (Id INTEGER PRIMARY KEY AUTOINCREMENT, Date TEXT,
                        Quantity INTEGER)
                        """;
@@ -43,7 +43,7 @@ public class Database(string connString = @"Data Source=HabitTracker.db")
     {
         ArgumentNullException.ThrowIfNull(habitName);
         var cmd = $"""
-                    DELETE FROM {habitName} WHERE id = '{logId}'
+                    DELETE FROM '{habitName}' WHERE id = '{logId}'
                     """;
         SendCmd(cmd);
     }

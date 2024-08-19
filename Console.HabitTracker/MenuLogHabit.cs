@@ -34,17 +34,20 @@ internal class MenuLogHabit : Menu
         }
         else{
             Menu tempMenu = new();
-            
-            try
+
+            while (true)
             {
-                var r = tempMenu.Prompt("Please enter the date (yyyy-mm-dd)");
-                date = DateOnly.Parse(r); //TODO: Check for date before today and proper format
-            }
-            catch (Exception)
-            {
-                var r = tempMenu.Prompt("Please enter the date (yyyy-mm-dd)");
-                if (r != null) date = DateOnly.Parse(r);
-                throw;
+                var r = tempMenu.Prompt("Please enter the 3date (yyyy-mm-dd)");
+                if (r == null) continue;
+                try
+                {
+                    date = DateOnly.Parse(r);
+                    break;
+                }
+                catch (FormatException e)
+                {
+                    continue;
+                }
             }
         }
                 
