@@ -23,7 +23,8 @@ namespace Console.HabitTracker
             ShowMenu();
             var r = Convert.ToInt32(Prompt(checkEnabled:true));
             var options = GetMenuOptions();
-            Program.selectedHabit = options[r-1].Description;
+            if (r != 0)
+                Program.selectedHabit = options[r - 1].Description;
         }
         public static void GetHabit(){
             Menu tempMenu = new();
