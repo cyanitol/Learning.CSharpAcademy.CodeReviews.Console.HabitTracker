@@ -14,7 +14,7 @@ internal class MenuLogHabit : Menu
         DoSelection(Prompt(checkEnabled: true) ?? throw new InvalidOperationException());
     }
 
-    private void DoSelection(string s){
+    private static void DoSelection(string s){
         switch (s){
             case "1":
                 LogHabit();
@@ -34,10 +34,11 @@ internal class MenuLogHabit : Menu
         }
         else{
             Menu tempMenu = new();
+            
             try
             {
                 var r = tempMenu.Prompt("Please enter the date (yyyy-mm-dd)");
-                date = DateOnly.Parse(r);
+                date = DateOnly.Parse(r); //TODO: Check for date before today and proper format
             }
             catch (Exception)
             {

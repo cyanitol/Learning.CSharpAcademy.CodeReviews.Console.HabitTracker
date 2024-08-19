@@ -24,7 +24,7 @@ public class Database(string connString = @"Data Source=HabitTracker.db")
 
     public void AddLogItem(string category, DateOnly logDate, int qty)
     {
-        if (category == null) throw new ArgumentNullException(nameof(category));
+        ArgumentNullException.ThrowIfNull(category);
         var cmd = $"""
                     INSERT INTO {category}(date, quantity) VALUES('{logDate}',{qty})
                     """;
@@ -32,7 +32,7 @@ public class Database(string connString = @"Data Source=HabitTracker.db")
     }
 
     public List<object> GetLogItems(string category){
-        if (category == null) throw new ArgumentNullException(nameof(category));
+        ArgumentNullException.ThrowIfNull(category);
         var cmd = $"""
                     SELECT * FROM {category};
                     """;
@@ -41,7 +41,7 @@ public class Database(string connString = @"Data Source=HabitTracker.db")
 
     public void DeleteLogItem(string habitName, int logId)
     {
-        if (habitName == null) throw new ArgumentNullException(nameof(habitName));
+        ArgumentNullException.ThrowIfNull(habitName);
         var cmd = $"""
                     DELETE FROM {habitName} WHERE id = '{logId}'
                     """;
