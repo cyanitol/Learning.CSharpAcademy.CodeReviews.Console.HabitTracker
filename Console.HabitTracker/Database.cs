@@ -5,12 +5,12 @@ public class Database(string connString = @"Data Source=HabitTracker.db")
 {
     public void CreateLogCategory(string habitName)
     {
-            var cmd = $"""
+        var cmd = $"""
                        CREATE TABLE IF NOT EXISTS '{habitName}'
                        (Id INTEGER PRIMARY KEY AUTOINCREMENT, Date TEXT,
                        Quantity INTEGER)
                        """;
-            SendCmd(cmd);               
+        SendCmd(cmd);
     }
 
     public List<object> GetLogCategories()
@@ -31,7 +31,8 @@ public class Database(string connString = @"Data Source=HabitTracker.db")
         SendCmd(cmd);
     }
 
-    public List<object> GetLogItems(string category){
+    public List<object> GetLogItems(string category)
+    {
         ArgumentNullException.ThrowIfNull(category);
         var cmd = $"""
                     SELECT * FROM {category};
@@ -70,7 +71,8 @@ public class Database(string connString = @"Data Source=HabitTracker.db")
         {
             while (reader.Read())
             {
-                if (reader.FieldCount == 1){
+                if (reader.FieldCount == 1)
+                {
                     results.Add(reader.GetString(0));
                 }
 

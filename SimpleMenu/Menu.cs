@@ -48,7 +48,8 @@ public class Menu(string title = "Application Title")
 
     public void ClearMenuOptions()
     {
-        foreach (var option in _options.ToList()){
+        foreach (var option in _options.ToList())
+        {
             _options.Remove(option);
         }
     }

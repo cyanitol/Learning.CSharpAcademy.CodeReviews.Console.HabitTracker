@@ -35,7 +35,7 @@ public static class Program
 
     private static void Main(string[] args)
     {
-        System.Console.SetWindowSize(100,400);
+        System.Console.SetWindowSize(100, 400);
 
         _ = new MenuSelectHabit($"{AppName} :: Select Habit", firstRun: true);
         while (true)

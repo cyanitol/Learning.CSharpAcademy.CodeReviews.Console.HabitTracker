@@ -28,7 +28,7 @@ internal class MenuViewLog : Menu
     }
 
     private static void ViewLog(string habit)
-    { 
+    {
         Database db = new();
         var r = db.GetLogItems(habit);
         var footer = new List<string>();
@@ -42,10 +42,10 @@ internal class MenuViewLog : Menu
         }
 
         Menu tempMenu = new();
-        tempMenu.AddMenuOption(new Option("Delete log line","1"));
-        tempMenu.AddMenuOption(new Option("Return to Main Menu","0"));
+        tempMenu.AddMenuOption(new Option("Delete log line", "1"));
+        tempMenu.AddMenuOption(new Option("Return to Main Menu", "0"));
         tempMenu.ShowMenu(footerContent: footer);
-            
+
         var response = tempMenu.Prompt();
         switch (response)
         {

@@ -8,7 +8,8 @@ internal class MenuSelectHabit : Menu
     {
         Init(firstRun);
     }
-    private void Init(bool firstRun=false){
+    private void Init(bool firstRun = false)
+    {
         Database db = new();
         var menuOptionCounter = 1;
         foreach (var result in db.GetLogCategories())
@@ -21,12 +22,13 @@ internal class MenuSelectHabit : Menu
         if (!firstRun)
             AddMenuOption(new Option("Exit to Main Menu", "0"));
         ShowMenu();
-        var r = Convert.ToInt32(Prompt(checkEnabled:true));
+        var r = Convert.ToInt32(Prompt(checkEnabled: true));
         var options = GetMenuOptions();
         if (r != 0)
             Program.SelectedHabit = options[r - 1].Description;
     }
-    public static void GetHabit(){
+    public static void GetHabit()
+    {
         Menu tempMenu = new();
         Database db = new();
         var menuOptionCounter = 1;
@@ -38,8 +40,8 @@ internal class MenuSelectHabit : Menu
             menuOptionCounter++;
         }
         tempMenu.ShowMenu();
-        var r = Convert.ToInt32(tempMenu.Prompt(checkEnabled:true));
+        var r = Convert.ToInt32(tempMenu.Prompt(checkEnabled: true));
         var options = tempMenu.GetMenuOptions();
-        Program.SelectedHabit = options[r-1].Description;
+        Program.SelectedHabit = options[r - 1].Description;
     }
 }

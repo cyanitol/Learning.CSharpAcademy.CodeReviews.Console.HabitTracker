@@ -14,8 +14,10 @@ internal class MenuLogHabit : Menu
         DoSelection(Prompt(checkEnabled: true) ?? throw new InvalidOperationException());
     }
 
-    private static void DoSelection(string s){
-        switch (s){
+    private static void DoSelection(string s)
+    {
+        switch (s)
+        {
             case "1":
                 LogHabit();
                 break;
@@ -25,14 +27,17 @@ internal class MenuLogHabit : Menu
         }
     }
 
-    private static void LogHabit(bool now = true){
+    private static void LogHabit(bool now = true)
+    {
         var db = new Database();
         var date = new DateOnly();
 
-        if (now){
+        if (now)
+        {
             date = DateOnly.FromDateTime(DateTime.Now);
         }
-        else{
+        else
+        {
             Menu tempMenu = new();
 
             while (true)
@@ -50,7 +55,7 @@ internal class MenuLogHabit : Menu
                 }
             }
         }
-                
+
         db.AddLogItem(Program.SelectedHabit ?? throw new InvalidOperationException(), date, 1);
     }
 }
