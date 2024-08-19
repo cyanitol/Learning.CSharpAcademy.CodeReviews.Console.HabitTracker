@@ -44,7 +44,7 @@ internal class MenuLogHabit : Menu
                     date = DateOnly.Parse(r);
                     break;
                 }
-                catch (FormatException e)
+                catch (FormatException)
                 {
                     continue;
                 }

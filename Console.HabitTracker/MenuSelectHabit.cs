@@ -11,7 +11,7 @@ internal class MenuSelectHabit : Menu
     private void Init(bool firstRun=false){
         Database db = new();
         var menuOptionCounter = 1;
-        foreach (object result in db.GetLogCategories())
+        foreach (var result in db.GetLogCategories())
         {
             var item = Convert.ToString(result);
             if (item == "sqlite_sequence") continue;
@@ -30,7 +30,7 @@ internal class MenuSelectHabit : Menu
         Menu tempMenu = new();
         Database db = new();
         var menuOptionCounter = 1;
-        foreach (object result in db.GetLogCategories())
+        foreach (var result in db.GetLogCategories())
         {
             var item = Convert.ToString(result);
             if (item == "sqlite_sequence") continue;
