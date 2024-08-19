@@ -5,17 +5,12 @@ public class Database(string connString = @"Data Source=HabitTracker.db")
 {
     public void CreateLogCategory(string habitName)
     {
-        while (true)
-        {
-            if (habitName == null) continue;
             var cmd = $"""
                        CREATE TABLE IF NOT EXISTS {habitName}
                        (Id INTEGER PRIMARY KEY AUTOINCREMENT, Date TEXT,
                        Quantity INTEGER)
                        """;
-            SendCmd(cmd);
-        }
-
+            SendCmd(cmd);               
     }
 
     public List<object> GetLogCategories()

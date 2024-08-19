@@ -22,12 +22,12 @@ namespace Console.HabitTracker;
 
 public struct HabitLogLine
 {
-    public string Id { get; set; }
-    public string Date { get; set; }
-    public string Quantity { get; set; }
+    public string Id { get; init; }
+    public string Date { get; init; }
+    public string Quantity { get; init; }
 }
 
-public class Program
+public static class Program
 {
     private const string AppName = "Habit Tracker";
     internal static string? SelectedHabit;
