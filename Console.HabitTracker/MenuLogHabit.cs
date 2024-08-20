@@ -42,7 +42,7 @@ internal class MenuLogHabit : Menu
 
             while (true)
             {
-                var r = tempMenu.Prompt("Please enter the 3date (yyyy-mm-dd)");
+                var r = tempMenu.Prompt("Please enter the date (yyyy-mm-dd)");
                 if (r == null) continue;
                 try
                 {

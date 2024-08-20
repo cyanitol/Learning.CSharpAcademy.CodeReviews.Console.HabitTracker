@@ -125,6 +125,7 @@ public class Menu(string title = "Application Title")
                 int contentPadding = (footerPaddingLength - content.Length) / 2;
                 footer.AppendFormat($"{_outsideMargin}");
                 footer.AppendFormat("".PadLeft(contentPadding, ' '));
+                footer.AppendFormat(new string(' ',InsideMarginWidth));
                 footer.AppendFormat(content);
                 footer.AppendFormat("".PadRight(footerPaddingLength - contentPadding - content.Length, ' '));
                 footer.AppendFormat($"{_outsideMargin}\n");
@@ -132,6 +133,7 @@ public class Menu(string title = "Application Title")
             else
             {
                 footer.AppendFormat($"{_outsideMargin}");
+                footer.AppendFormat(new string(' ',InsideMarginWidth));
                 footer.AppendFormat(content);
                 footer.AppendFormat("".PadRight(footerPaddingLength - content.Length, ' '));
                 footer.AppendFormat($"{_outsideMargin}\n");
@@ -164,6 +166,7 @@ public class Menu(string title = "Application Title")
                 int contentPadding = (footerPaddingLength - item.Length) / 2;
                 footer.AppendFormat($"{_outsideMargin}");
                 footer.AppendFormat("".PadLeft(contentPadding, ' '));
+                footer.AppendFormat(new string(' ',InsideMarginWidth));
                 footer.AppendFormat(item);
                 footer.AppendFormat("".PadRight(footerPaddingLength - contentPadding - item.Length, ' '));
                 footer.AppendFormat($"{_outsideMargin}\n");
@@ -171,6 +174,7 @@ public class Menu(string title = "Application Title")
             else
             {
                 footer.AppendFormat($"{_outsideMargin}");
+                footer.AppendFormat(new string(' ',InsideMarginWidth));
                 footer.AppendFormat(item);
                 footer.AppendFormat("".PadRight(footerPaddingLength - item.Length, ' '));
                 footer.AppendFormat($"{_outsideMargin}\n");
