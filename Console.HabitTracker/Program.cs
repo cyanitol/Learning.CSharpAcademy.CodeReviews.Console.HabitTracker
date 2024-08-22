@@ -37,6 +37,13 @@ public static class Program
     {
         System.Console.SetWindowSize(80, 400);
 
+        {
+            Database db = new();
+            var y = db.GetLogCategories().Count;
+            if (db.GetLogCategories().Count == 0)
+            MenuAddHabit.AddDemoHabit();
+        }
+
         _ = new MenuSelectHabit($"{AppName} :: Select Habit", firstRun: true);
         while (true)
         {

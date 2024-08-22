@@ -13,4 +13,9 @@ internal class MenuAddHabit : Menu
         if (habit != null) db.CreateLogCategory(habit);
         _ = new MenuSelectHabit();
     }
+
+    public static void AddDemoHabit(){
+        var db = new Database();
+        db.CreateLogCategory("Demo");
+    }
 }
