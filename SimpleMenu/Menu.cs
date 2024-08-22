@@ -33,7 +33,7 @@ public class Menu(string title = "Application Title")
     private List<Option> _options = [];
 
     private static readonly int ConsoleWidth = Console.WindowWidth;
-    private readonly int _totalPaddingLength = (ConsoleWidth + title.Length) / 2;
+    //private readonly int _totalPaddingLength = (ConsoleWidth + title.Length) / 2;
     private const string MenuBorder = "|";
     private const int InsideMarginWidth = 2;
     private const int OutsideMarginWidth = 2;
@@ -61,8 +61,8 @@ public class Menu(string title = "Application Title")
         var menuTitle = new StringBuilder();
 
         // Calculate left padding for centering the title
-        int titleLength = title.Length;
-        int leftPadding = (ConsoleWidth - titleLength) / 2;
+        var titleLength = title.Length;
+        var leftPadding = (ConsoleWidth - titleLength) / 2;
 
         // Top border
         menuTitle.AppendFormat($"{_outsideMargin}");
@@ -94,8 +94,8 @@ public class Menu(string title = "Application Title")
             menuLine.AppendFormat($"{option.Description}");
 
             // Calculate right padding to align the ending '|'
-            int optionLineLength = menuLine.Length;
-            int rightPadding = ConsoleWidth - optionLineLength - OutsideMarginWidth - 1;
+            var optionLineLength = menuLine.Length;
+            var rightPadding = ConsoleWidth - optionLineLength - OutsideMarginWidth - 1;
 
             menuLine.AppendFormat("".PadRight(rightPadding));
             menuLine.AppendFormat(MenuBorder);
@@ -104,13 +104,13 @@ public class Menu(string title = "Application Title")
 
             Console.Write(menuLine);
         }
-        ShowFooter(footerContent ?? new List<string>());
+        ShowFooter(footerContent ?? []);
     }
 
     private void ShowFooter(string content = "", bool centered = false)
     {
         var footer = new StringBuilder();
-        int footerPaddingLength = ConsoleWidth - (OutsideMarginWidth * 2);
+        var footerPaddingLength = ConsoleWidth - OutsideMarginWidth * 2;
 
         // Top footer border
         footer.AppendFormat($"{_outsideMargin}");
@@ -122,7 +122,7 @@ public class Menu(string title = "Application Title")
         {
             if (centered)
             {
-                int contentPadding = (footerPaddingLength - content.Length) / 2;
+                var contentPadding = (footerPaddingLength - content.Length) / 2;
                 footer.AppendFormat($"{_outsideMargin}");
                 footer.AppendFormat("".PadLeft(contentPadding, ' '));
                 footer.AppendFormat(new string(' ',InsideMarginWidth));
@@ -151,7 +151,7 @@ public class Menu(string title = "Application Title")
     private void ShowFooter(List<string> content, bool centered = false)
     {
         var footer = new StringBuilder();
-        int footerPaddingLength = ConsoleWidth - (OutsideMarginWidth * 2);
+        var footerPaddingLength = ConsoleWidth - OutsideMarginWidth * 2;
 
         // Top footer border
         footer.AppendFormat($"{_outsideMargin}");
@@ -163,7 +163,7 @@ public class Menu(string title = "Application Title")
         {
             if (centered)
             {
-                int contentPadding = (footerPaddingLength - item.Length) / 2;
+                var contentPadding = (footerPaddingLength - item.Length) / 2;
                 footer.AppendFormat($"{_outsideMargin}");
                 footer.AppendFormat("".PadLeft(contentPadding, ' '));
                 footer.AppendFormat(new string(' ',InsideMarginWidth));

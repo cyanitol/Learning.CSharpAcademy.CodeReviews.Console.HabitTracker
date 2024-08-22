@@ -26,7 +26,7 @@ public class Database(string connString = @"Data Source=HabitTracker.db")
     {
         ArgumentNullException.ThrowIfNull(category);
         var cmd = $"""
-                    INSERT INTO {category}(date, quantity) VALUES('{logDate}',{qty})
+                    INSERT INTO '{category}'(date, quantity) VALUES('{logDate}',{qty})
                     """;
         SendCmd(cmd);
     }
@@ -35,7 +35,7 @@ public class Database(string connString = @"Data Source=HabitTracker.db")
     {
         ArgumentNullException.ThrowIfNull(category);
         var cmd = $"""
-                    SELECT * FROM {category};
+                    SELECT * FROM '{category}';
                     """;
         return SendCmdRead(cmd);
     }
@@ -84,9 +84,7 @@ public class Database(string connString = @"Data Source=HabitTracker.db")
                     Quantity = reader.GetString(2)
                 };
                 results.Add(habit);
-
             }
-
         }
         conn.Close();
         return results;
