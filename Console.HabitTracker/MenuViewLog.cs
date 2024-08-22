@@ -41,7 +41,7 @@ internal class MenuViewLog : Menu
             footer.Add(footerLine.ToString());
         }
 
-        Menu tempMenu = new();
+        Menu tempMenu = new(title: $" HABIT TRACKER :: Log Data for {Program.SelectedHabit} Habit");
         tempMenu.AddMenuOption(new Option("Delete log line", "1"));
         tempMenu.AddMenuOption(new Option("Return to Main Menu", "0"));
         tempMenu.ShowMenu(footerContent: footer);
