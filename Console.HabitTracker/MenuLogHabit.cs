@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using SimpleMenu;
 
 namespace Console.HabitTracker;
@@ -37,7 +38,7 @@ internal class MenuLogHabit : Menu
         {
             datetime = DateTime.Now - new TimeSpan(days: 365, 0, 0, 0);
             datetime = datetime.AddDays(rnd.Next(0, 365));
-            
+
             var date = new DateOnly(datetime.Year, datetime.Month, datetime.Day);
             db.AddLogItem("Demo", date, rnd.Next(0, 10));
         }
@@ -58,17 +59,26 @@ internal class MenuLogHabit : Menu
 
             while (true)
             {
-                var r = tempMenu.Prompt("Please enter the date (yyyy-mm-dd)");
-                if (r == null) continue;
-                try
+                var re = new Regex("[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9]");
+                var r = tempMenu.Prompt("Please enter the date (yyyy-mm-dd):");
+                var q = re.IsMatch(r);
+
+                if (r == null)
+                    continue;
+
+                if (q)
                 {
                     date = DateOnly.Parse(r);
                     break;
                 }
-                catch (FormatException)
+
+                else
                 {
                     continue;
+                    System.Console.WriteLine("Error!");
+                    System.Console.ReadLine();
                 }
+
             }
         }
 
