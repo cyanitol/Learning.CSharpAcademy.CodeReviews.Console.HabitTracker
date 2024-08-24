@@ -65,9 +65,6 @@ public static class Program
                     _ = new MenuReport($"{AppName} :: Reports");
                     break;
                 case "4":
-                    _ = new MenuAddHabit($"{AppName} :: Add Habit");
-                    break;
-                case "5":
                     SwitchHabit();
                     break;
                 case "9":
