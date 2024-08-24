@@ -34,13 +34,13 @@ internal class MenuLogHabit : Menu
         var db = new Database();
 
         var datetime = new DateTime();
-        for (var i = 0; i <= 100; i++)
+        for (var i = 0; i < 100; i++)
         {
             datetime = DateTime.Now - new TimeSpan(days: 365, 0, 0, 0);
             datetime = datetime.AddDays(rnd.Next(0, 365));
 
             var date = new DateOnly(datetime.Year, datetime.Month, datetime.Day);
-            db.AddLogItem("Demo", date, rnd.Next(0, 10));
+            db.AddLogItem("Demo", date, rnd.Next(1, 50));
         }
     }
 
