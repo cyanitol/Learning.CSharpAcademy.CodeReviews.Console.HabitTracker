@@ -27,6 +27,22 @@ internal class MenuLogHabit : Menu
         }
     }
 
+    public static void AddDemoData()
+    {
+        var rnd = new Random();
+        var db = new Database();
+
+        var datetime = new DateTime();
+        for (var i = 0; i <= 100; i++)
+        {
+            datetime = DateTime.Now - new TimeSpan(days: 365, 0, 0, 0);
+            datetime = datetime.AddDays(rnd.Next(0, 365));
+            
+            var date = new DateOnly(datetime.Year, datetime.Month, datetime.Day);
+            db.AddLogItem("Demo", date, rnd.Next(0, 10));
+        }
+    }
+
     private static void LogHabit(bool now = true)
     {
         var db = new Database();

@@ -39,9 +39,11 @@ public static class Program
 
         {
             Database db = new();
-            var y = db.GetLogCategories().Count;
             if (db.GetLogCategories().Count == 0)
-            MenuAddHabit.AddDemoHabit();
+            {
+                MenuAddHabit.AddDemoHabit();
+                MenuLogHabit.AddDemoData();
+            }
         }
 
         _ = new MenuSelectHabit($"{AppName} :: Select Habit", firstRun: true);
