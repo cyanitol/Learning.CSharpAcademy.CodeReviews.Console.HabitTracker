@@ -8,9 +8,9 @@ internal class MenuViewLog : Menu
 {
     public MenuViewLog(string title = "Application Title") : base(title)
     {
-        AddMenuOption(new Option("View Log", "1"));
-        AddMenuOption(new Option("Search Log", "2"));
-        AddMenuOption(new Option("Export Log", "3"));
+        AddMenuOption(new Option("View Log (Paginate)", "1"));
+        AddMenuOption(new Option("View Log (Single Page)", "2"));
+        AddMenuOption(new Option("Export Log (CSV)", "3"));
         AddMenuOption(new Option("Exit to Main Menu", "0"));
         ShowMenu();
         var r = Prompt(checkEnabled: true);
@@ -20,6 +20,7 @@ internal class MenuViewLog : Menu
                 ViewLog(Program.SelectedHabit ?? throw new InvalidOperationException());
                 break;
             case "2":
+                ViewLog(Program.SelectedHabit ?? throw new InvalidOperationException());
                 break;
             case "3":
                 break;
