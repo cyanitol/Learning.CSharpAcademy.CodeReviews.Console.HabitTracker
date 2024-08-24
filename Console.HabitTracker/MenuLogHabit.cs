@@ -9,7 +9,7 @@ internal class MenuLogHabit : Menu
     public MenuLogHabit(string title = "Application name") : base(title)
     {
         AddMenuOption(new Option("Log Now", "1"));
-        AddMenuOption(new Option("Log Previous", "2"));
+        AddMenuOption(new Option("Log Past", "2"));
         AddMenuOption(new Option("Exit to Main Menu", "0"));
         ShowMenu();
         DoSelection(Prompt(checkEnabled: true) ?? throw new InvalidOperationException());
