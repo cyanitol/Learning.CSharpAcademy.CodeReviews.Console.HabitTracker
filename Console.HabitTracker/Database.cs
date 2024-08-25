@@ -49,6 +49,15 @@ public class Database(string connString = @"Data Source=HabitTracker.db")
         SendCmd(cmd);
     }
 
+        public void DeleteLogCategory(string habitName)
+    {
+        ArgumentNullException.ThrowIfNull(habitName);
+        var cmd = $"""
+                    DROP TABLE '{habitName}';
+                    """;
+        SendCmd(cmd);
+    }
+
     private void SendCmd(string command)
     {
         using var conn = new SqliteConnection(connString);

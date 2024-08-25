@@ -29,7 +29,7 @@ public struct HabitLogLine
 
 public static class Program
 {
-    private const string AppName = "Habit Tracker";
+    internal const string AppName = "Habit Tracker";
     internal static string? SelectedHabit;
     internal static string? MenuSelection;
 

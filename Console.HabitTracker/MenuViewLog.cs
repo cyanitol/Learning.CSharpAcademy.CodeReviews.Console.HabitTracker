@@ -68,6 +68,9 @@ internal class MenuViewLog : Menu
                         db.DeleteLogItem(Program.SelectedHabit, Convert.ToInt32(input));
                         break;
                     }
+                    else if (input == "0"){
+                        break;
+                    }
                     else {
                         continue;
                     }
